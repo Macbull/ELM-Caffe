@@ -234,4 +234,13 @@ int main(int argc, char** argv){
 	float mse = sqerror/(8*800);
 	cout<<mse<<endl;
 	process_label(elm_output,exp_out1);
+  cout<<"training successfull"<<endl;
+  /////// Testing
+
+  cout<<"Testing net"<<endl;
+  Net<float>* elm_t = new Net<float>(network,TEST);
+  elm_t->ShareTrainedLayersWith(elm);
+	dnn_fwd(input,exp_out,elm_t,elm_output);
+	process_label(elm_output,exp_out1);
+  cout<<"sharing successfull"<<endl;
 }
