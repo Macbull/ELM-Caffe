@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cmath>
 #include <glog/logging.h>
+#include "caffe/util/io.hpp"
 
 #include "caffe/caffe.hpp"
 using namespace std;
@@ -243,4 +244,14 @@ int main(int argc, char** argv){
 	dnn_fwd(input,exp_out,elm_t,elm_output);
 	process_label(elm_output,exp_out1);
   cout<<"sharing successfull"<<endl;
+
+  NetParameter elms;
+  elm->ToProto(&elms,false);
+  WriteProtoToBinaryFile(elms,"abc.proto");
+  Net<float>* elm_t2 = new Net<float>(network,TEST);
+  elm_t2->CopyTrainedLayersFrom("abc.proto");
+  dnn_fwd(input,exp_out,elm_t,elm_output);
+  process_label(elm_output,exp_out1);
+  cout<<"reading from file successfull"<<endl;
+
 }
