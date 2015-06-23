@@ -233,5 +233,5 @@ int main(int argc, char** argv){
 	cout<<sqerror<<endl;
 	float mse = sqerror/(8*800);
 	cout<<mse<<endl;
-	process_label(elm_output,exp_out);
+	process_label(elm_output,exp_out1);
 }
